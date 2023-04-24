@@ -9,28 +9,30 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Calculator</h1>
-  <div class="calculator">
-    <div class="row">
-      <input class="rectangle" type="number">
-      <div class="square select" tabindex="-1" id="select">
-        <div class="current">
-          <div data-value="add">+</div>
+  <div class="wrapper">
+    <h1>Calculator</h1>
+    <div class="calculator">
+      <div class="row">
+        <input class="rectangle" type="number">
+        <div class="square select" tabindex="-1" id="select">
+          <div class="current">
+            <div data-value="add">+</div>
+          </div>
+          <div class="options disabled">
+            <div class="square" data-value="add">+</div>
+            <div class="square" data-value="sub">-</div>
+            <div class="square" data-value="mul">*</div>
+            <div class="square" data-value="div">/</div>
+          </div>
         </div>
-        <div class="options disabled">
-          <div class="square" data-value="add">+</div>
-          <div class="square" data-value="sub">-</div>
-          <div class="square" data-value="mul">*</div>
-          <div class="square" data-value="div">/</div>
-        </div>
+        <input class="rectangle" type="number">
+        <button id="result-button" class="square">=</button>
+        <p class="rectangle" id="result"></p>
       </div>
-      <input class="rectangle" type="number">
-      <button id="result-button" class="square">=</button>
-      <p class="rectangle" id="result"></p>
-    </div>
-    </div>
-  <div class="row">
-    <div class="results"></div>
+      </div>
+      <div class="row">
+        <div class="results"></div>
+      </div>
   </div>
 
   <script src="select.js"></script>
