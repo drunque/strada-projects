@@ -11,24 +11,30 @@
 <body>
   <h1>Calculator</h1>
   <div class="calculator">
-    <input class="rectangle" type="number">
-    <div class="square select" tabindex="-1" id="select">
-      <div class="current">
-        <div data-value="add">+</div>
+    <div class="row">
+      <input class="rectangle" type="number">
+      <div class="square select" tabindex="-1" id="select">
+        <div class="current">
+          <div data-value="add">+</div>
+        </div>
+        <div class="options disabled">
+          <div class="square" data-value="add">+</div>
+          <div class="square" data-value="sub">-</div>
+          <div class="square" data-value="mul">*</div>
+          <div class="square" data-value="div">/</div>
+        </div>
       </div>
-      <div class="options disabled">
-        <div class="square" data-value="add">+</div>
-        <div class="square" data-value="sub">-</div>
-        <div class="square" data-value="mul">*</div>
-        <div class="square" data-value="div">/</div>
-      </div>
+      <input class="rectangle" type="number">
+      <button id="result-button" class="square">=</button>
+      <p class="rectangle" id="result"></p>
     </div>
-    <input class="rectangle" type="number">
-    <button id="result-button" class="square">=</button>
-    <p class="rectangle" id="result"></p>
+    </div>
+  <div class="row">
+    <div class="results"></div>
   </div>
-  <p>пока что нет поддержки для устройств, шириной меньше 1000px, и врядли будет *мнгтч*</p>
+
   <script src="select.js"></script>
-  <script src="script.js"></script>
+  <script src="./calc.js" type="module"></script>
+  <script src="./script.js" type="module"></script>
 </body>
 </html>
