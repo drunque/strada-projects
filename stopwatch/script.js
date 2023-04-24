@@ -3,15 +3,15 @@ const pauseButton = document.querySelector("#pause");
 const stopButton = document.querySelector("#restart");
 const timeNode = document.querySelector("#time");
 
-function createStopwatch() {
+function Stopwatch(displayFunc) {
   let count = 0;
+  const initialTime = formatTime(0);
   let isOn = false;
   let timer;
-  const initialTime = formatTime(0);
 
   function formatTime(time) {
     const hours = Math.floor(time / 3600);
-    const minutes = Math.floor(time / 60);
+    const minutes = Math.floor(time / 60) % 60;
     const seconds = Math.floor(time % 60);
 
     const format = (time) => `${time < 10 ? `0${time}` : time}`;
@@ -21,43 +21,33 @@ function createStopwatch() {
   return {
     start() {
       if (!isOn) {
-        timer = setInterval(() => {
-          timeNode.textContent = formatTime(++count);
-        }, 1000);
         isOn = true;
+        timer = setInterval(() => {
+          displayFunc(formatTime(++count))
+        }, 1000);
       }
     },
     pause() {
       if (isOn) {
-        clearInterval(timer);
         isOn = false;
+        clearInterval(timer);
       }
     },
     stop() {
+      isOn = false;
       count = 0;
-      timeNode.textContent = initialTime;
       clearInterval(timer);
-    },
-    isOn() {
-      return isOn;
+      displayFunc(initialTime)
     },
   };
 }
 
-const stopwatch = createStopwatch();
+function displayTime(time) {
+  timeNode.textContent = time;
+}
 
-startButton.addEventListener("click", () => {
-  if (!stopwatch.isOn()) {
-    stopwatch.start();
-  }
-});
+const stopwatch = Stopwatch(displayTime);
 
-pauseButton.addEventListener("click", () => {
-  if (stopwatch.isOn()) {
-    stopwatch.pause();
-  }
-});
-
-stopButton.addEventListener("click", () => {
-  stopwatch.stop();
-});
+startButton.addEventListener("click", stopwatch.start);
+pauseButton.addEventListener("click", stopwatch.pause);
+stopButton.addEventListener("click", stopwatch.stop);
