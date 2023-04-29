@@ -10,6 +10,7 @@ const taskSubmit = taskCreator.querySelector(".submit-field");
 function addTask(event) {
   event.preventDefault();
   const taskName = taskInput.value;
+  taskInput.value = "";
 
   if (!taskName) return
 
