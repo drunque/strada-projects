@@ -73,9 +73,6 @@ body {
   .task-creator {
     flex-direction: column;
   }
-  .task-creator .settings {
-    margin: 0;
-  }
 
   .task-creator  .input-field {
     width: 100%;
