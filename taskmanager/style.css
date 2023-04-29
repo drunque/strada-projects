@@ -80,6 +80,11 @@ body {
   .task-creator  .input-field {
     width: 100%;
   }
+
+  .wrapper {
+    border: none;
+    width: 100%;
+  }
 }
 
 .checkbox {
