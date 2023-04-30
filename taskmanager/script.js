@@ -53,6 +53,8 @@ function render() {
     const taskData = user.getTaskData(taskID);
     renderTask(taskData);
   }
+
+  saveLocalStorage()
 }
 
 
@@ -78,8 +80,6 @@ function renderTask(taskData) {
     event.target.checked
       ? user.changeProperty(taskData.id, "status", "Done")
       : user.changeProperty(taskData.id, "status", "To Do");
-
-    saveLocalStorage()
   });
 
   tasks.appendChild(taskNode);
@@ -92,8 +92,6 @@ function taskRemove(event) {
       const taskID = task.getAttribute("id")
   
       user.deleteTask(taskID)
-      saveLocalStorage()
-      
       render()
     }
   }
