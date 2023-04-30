@@ -80,6 +80,8 @@ function renderTask(taskData) {
     event.target.checked
       ? user.changeProperty(taskData.id, "status", "Done")
       : user.changeProperty(taskData.id, "status", "To Do");
+
+    saveLocalStorage()
   });
 
   tasks.appendChild(taskNode);
