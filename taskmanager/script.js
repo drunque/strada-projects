@@ -2,10 +2,36 @@ import { taskManager } from "./taskManager.js";
 
 const user = taskManager();
 
-
+const taskTemplate = document.querySelector("#task-example");
 const taskCreator = document.querySelector(".task-creator");
 const taskInput = taskCreator.querySelector(".input-field input");
 const taskSubmit = taskCreator.querySelector(".submit-field");
+const tasks = document.querySelector(".tasks");
+
+function saveLocalStorage() {
+  const tasksData = []
+  for (let index = 0; index < user.length(); index++) {
+    const taskID = user.getTaskID(index)
+    const taskData = user.getTaskData(taskID)
+    tasksData.push(taskData)
+  }
+  localStorage.setItem("data", JSON.stringify(tasksData))
+  console.log(user.getList())
+}
+
+function downloadLocalStorage() {
+  const tasksData = JSON.parse(localStorage.getItem("data"))
+  console.log(tasksData)
+
+  console.log(user.getList())
+  user.concat(tasksData)
+  console.log(user.getList())
+  
+  render()
+}
+
+downloadLocalStorage()
+
 
 function addTask(event) {
   event.preventDefault();
@@ -17,25 +43,23 @@ function addTask(event) {
   const selectPriority = taskCreator.querySelector(".select .current .option");
   const taskPriority = selectPriority.getAttribute("data-priority");
   
-  console.log(taskPriority)
   user.addTask(taskName, { priority: taskPriority });
+  saveLocalStorage()
 
   render();
 }
 
-const tasks = document.querySelector(".tasks");
-
 function render() {
   tasks.textContent = "";
 
-  for (let index = 0; index < user.getListLength(); index++) {
+  for (let index = 0; index < user.length(); index++) {
     const taskID = user.getTaskID(index);
     const taskData = user.getTaskData(taskID);
+    console.log(taskData)
     renderTask(taskData);
   }
 }
 
-const taskTemplate = document.querySelector("#task-example");
 
 function renderTask(taskData) {
   const taskNode = taskTemplate.cloneNode(true);
@@ -60,8 +84,8 @@ function renderTask(taskData) {
       ? user.changeProperty(taskData.id, "status", "Done")
       : user.changeProperty(taskData.id, "status", "To Do");
 
+    saveLocalStorage()
   });
-
 
   tasks.appendChild(taskNode);
 }
@@ -73,6 +97,8 @@ function taskRemove(event) {
       const taskID = task.getAttribute("id")
   
       user.deleteTask(taskID)
+      saveLocalStorage()
+      
       render()
     }
   }

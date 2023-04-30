@@ -82,6 +82,10 @@ body {
     border: none;
     width: 100%;
   }
+
+  .settings {
+    gap: 1rem;
+  }
 }
 
 .checkbox {

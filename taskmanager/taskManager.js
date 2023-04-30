@@ -27,7 +27,7 @@ export function taskManager() {
   };
 
   const publicFunctions = {
-    getListLength() {
+    length() {
       return taskList.length;
     },
 
@@ -80,6 +80,12 @@ export function taskManager() {
         taskList.splice(taskIndex, 1);
       }
     },
+    concat(tasks) {
+      for (const task of tasks) taskList.push(task)
+    },
+    getList() {
+      return taskList;
+    }
   };
 
   return publicFunctions;
