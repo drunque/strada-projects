@@ -83,9 +83,6 @@ export function taskManager() {
     concat(tasks) {
       for (const task of tasks) taskList.push(task)
     },
-    getList() {
-      return taskList;
-    }
   };
 
   return publicFunctions;
