@@ -16,16 +16,12 @@ function saveLocalStorage() {
     tasksData.push(taskData)
   }
   localStorage.setItem("data", JSON.stringify(tasksData))
-  console.log(user.getList())
 }
 
 function downloadLocalStorage() {
   const tasksData = JSON.parse(localStorage.getItem("data"))
-  console.log(tasksData)
 
-  console.log(user.getList())
-  user.concat(tasksData)
-  console.log(user.getList())
+  if (tasksData) user.concat(tasksData)
   
   render()
 }
@@ -55,7 +51,6 @@ function render() {
   for (let index = 0; index < user.length(); index++) {
     const taskID = user.getTaskID(index);
     const taskData = user.getTaskData(taskID);
-    console.log(taskData)
     renderTask(taskData);
   }
 }
