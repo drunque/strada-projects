@@ -1,7 +1,6 @@
 const preloader = document.querySelector(".preloader");
 
-const fadeOutEffect = () => {
-  setInterval(() => {
+const fadeOutEffect = setInterval(() => {
     if (!preloader.style.opacity) {
       preloader.style.opacity = 1;
     }
@@ -9,11 +8,10 @@ const fadeOutEffect = () => {
       preloader.style.opacity -= 0.1;
     } else {
       clearInterval(fadeOutEffect);
+      preloader.classList.add("none");
     }
-  }, 300);
-};
+  }, 50);
 
 window.addEventListener("load", () => {
   fadeOutEffect();
-  preloader.classList.add("none");
 });
