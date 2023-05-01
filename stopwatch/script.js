@@ -3,7 +3,7 @@ const pauseButton = document.querySelector("#pause");
 const stopButton = document.querySelector("#stop");
 const timeNode = document.querySelector("#time");
 
-function Stopwatch(displayFunc) {
+function Stopwatch(displayTime) {
   let count = 0;
   const initialTime = formatTime(0);
   let isOn = false;
@@ -23,7 +23,7 @@ function Stopwatch(displayFunc) {
       if (!isOn) {
         isOn = true;
         timer = setInterval(() => {
-          displayFunc(formatTime(++count))
+          displayTime(formatTime(++count))
         }, 1000);
       }
     },
@@ -37,7 +37,7 @@ function Stopwatch(displayFunc) {
       isOn = false;
       count = 0;
       clearInterval(timer);
-      displayFunc(initialTime)
+      displayTime(initialTime)
     },
   };
 }
