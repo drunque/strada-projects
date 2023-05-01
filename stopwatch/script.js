@@ -1,6 +1,6 @@
 const startButton = document.querySelector("#start");
 const pauseButton = document.querySelector("#pause");
-const stopButton = document.querySelector("#restart");
+const stopButton = document.querySelector("#stop");
 const timeNode = document.querySelector("#time");
 
 function Stopwatch(displayFunc) {
@@ -10,7 +10,7 @@ function Stopwatch(displayFunc) {
   let timer;
 
   function formatTime(time) {
-    const hours = Math.floor(time / 3600);
+    const hours = Math.floor(time / 60 ** 2);
     const minutes = Math.floor(time / 60) % 60;
     const seconds = Math.floor(time % 60);
 
