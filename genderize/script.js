@@ -17,9 +17,8 @@ function submitHandler(event) {
   const url = `${serverUrl}?name=${name}`;
   fetch(url)
     .then((response) => response.json())
-    .then(addResult);
-
-  input.value = "";
+    .then(addResult)
+    .then(() => (input.value = ""));
 }
 
 function addResult(data, id) {
