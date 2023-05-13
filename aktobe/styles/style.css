@@ -286,15 +286,15 @@ body {
 
   .wrapper > .container {
     flex-direction: column;
-  }
-
-  .wrapper > .container > * {
-    width: 100%;
+    gap: 1rem;
   }
 
   .wrapper > .container > .tabs {
+    width: 100%;
+    height: 50%;
     border-bottom: 1px solid #efefef;
     border-right: none;
+    flex-grow: 1;
   }
 
   .options:last-child {
@@ -303,5 +303,10 @@ body {
 
   .options a:first-of-type {
     border-left: 1px solid #efefef;
+  }
+
+  .wrapper > .container > .history {
+    width: 100%;
+    height: 30%;
   }
 }
