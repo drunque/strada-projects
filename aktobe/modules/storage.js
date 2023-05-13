@@ -1,28 +1,41 @@
 export function storage(render) {
-  const storage = [];
+  const storage = {
+    history: [],
+  };
+
+  const defaultQuery = "Aktobe";
 
   function saveData() {
     localStorage.setItem("aktobe-data", JSON.stringify(storage));
-    render(storage);
+    render(storage.history);
   }
-  
+
   return {
-    addData(data) {
-      storage.push(data);
+    addHistoryData(data) {
+      storage.history.push(data);
       saveData();
     },
-    removeData(data) {
-      storage.splice(storage.indexOf(data), 1);
+    removeHistoryData(data) {
+      storage.history.splice(storage.history.indexOf(data), 1);
       saveData();
     },
-    loadData() {
-      const loadedData = JSON.parse(localStorage.getItem("aktobe-data")) || [];
+    loadHistoryData() {
+      const loadedData =
+        JSON.parse(localStorage.getItem("aktobe-data")).history || [];
       if (!loadedData.length) return;
-      for (const data of loadedData) storage.push(data);
-      render(storage);
+      for (const data of loadedData) storage.history.push(data);
+      render(storage.history);
     },
-    includes(data) {
-      return storage.includes(data);
+    historyIncludes(data) {
+      return storage.history.includes(data);
+    },
+    setData(key, value) {
+      storage[key] = value;
+      saveData();
+    },
+    getData(key) {
+      const data = JSON.parse(localStorage.getItem("aktobe-data"));
+      return data[key] || defaultQuery;
     },
   };
 }

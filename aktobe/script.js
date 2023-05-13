@@ -4,13 +4,14 @@ import { storage } from "./modules/storage.js";
 import { formatTemp, renderTime } from "./modules/format.js";
 
 const weatherStorage = storage(renderHistoryNode);
-weatherStorage.loadData();
-renderTabNode("Aktobe");
+weatherStorage.loadHistoryData();
+renderTabNode(weatherStorage.getData("lastQuery"));
 
 function renderTabNode(cityName) {
   getWeatherData(cityName)
     .then((data) => {
-      const isSaved = weatherStorage.includes(data.name);
+      weatherStorage.setData("lastQuery", data.name)
+      const isSaved = weatherStorage.historyIncludes(data.name);
       if (isSaved) {
         ui.now.favButton.textContent = "favorite";
         ui.now.favButton.classList.add("fav-active");
@@ -100,7 +101,7 @@ function historyHandler(event) {
     const historyCityNameNode = historyCityNode.querySelector("p");
     const cityName = historyCityNameNode.textContent;
 
-    weatherStorage.removeData(cityName);
+    weatherStorage.removeHistoryData(cityName);
     if (ui.now.cityName.textContent === cityName) {
       ui.now.favButton.classList.remove("fav-active")
       ui.now.favButton.textContent = "favorite_border"
@@ -121,10 +122,10 @@ function favButtonHandler() {
   const initState = favButton.textContent === "favorite";
 
   if (initState) {
-    weatherStorage.removeData(cityName);
+    weatherStorage.removeHistoryData(cityName);
     favButton.textContent = "favorite_border";
   } else {
-    weatherStorage.addData(cityName);
+    weatherStorage.addHistoryData(cityName);
     favButton.textContent = "favorite";
   }
 
