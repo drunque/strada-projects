@@ -269,3 +269,29 @@ body {
 
 
 /* HISTORY */
+
+@media (max-width: 620px) {
+  body::-webkit-scrollbar {
+    display: none;
+  }
+  .wrapper {
+    height: 100%;
+  }
+  .wrapper > .container {
+    flex-direction: column;
+  }
+
+  .wrapper > .container > * {
+    width: 100%;
+  }
+
+  .wrapper > .container > .tabs {
+    border-bottom: 1px solid #efefef;
+    height: 60%;
+  }
+
+  .wrapper > .container > .history {
+    height: 40%;
+  }
+  
+}
