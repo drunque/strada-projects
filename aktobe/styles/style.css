@@ -300,6 +300,10 @@ body {
     border-right: 1px solid #efefef;
   }
 
+  .options:first-child {
+    border-left: 1px solid #efefef;
+  }
+
   .wrapper > .container > .history {
     height: 40%;
   }
