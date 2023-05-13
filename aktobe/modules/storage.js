@@ -20,10 +20,10 @@ export function storage(render) {
       saveData();
     },
     loadHistoryData() {
-      const loadedData =
-        JSON.parse(localStorage.getItem("aktobe-data")).history || [];
-      if (!loadedData.length) return;
-      for (const data of loadedData) storage.history.push(data);
+      const loadedData = JSON.parse(localStorage.getItem("aktobe-data"));
+      const history = loadedData ? loadedData.history : [];
+      if (!history.length) return;
+      for (const data of history) storage.history.push(data);
       render(storage.history);
     },
     historyIncludes(data) {
@@ -35,7 +35,7 @@ export function storage(render) {
     },
     getData(key) {
       const data = JSON.parse(localStorage.getItem("aktobe-data"));
-      return data[key] || defaultQuery;
+      return data ? data[key] : defaultQuery;
     },
   };
 }
