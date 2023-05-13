@@ -300,7 +300,7 @@ body {
     border-right: 1px solid #efefef;
   }
 
-  .options:first-child {
+  .options a:first-of-type {
     border-left: 1px solid #efefef;
   }
 
