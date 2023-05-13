@@ -275,7 +275,7 @@ body {
     display: none;
   }
   .wrapper {
-    height: 100%;
+    height: 90%;
   }
   .wrapper > .container {
     flex-direction: column;
