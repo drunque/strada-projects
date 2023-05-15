@@ -1,7 +1,7 @@
 const nowTab = document.querySelector("#now");
-const detailsTab = document.querySelector("#details")
-const forecast = document.querySelector("#forecast")
-const form = document.querySelector("form")
+const detailsTab = document.querySelector("#details");
+const forecast = document.querySelector("#forecast");
+const form = document.querySelector("form");
 
 export const ui = {
   now: {
@@ -9,7 +9,7 @@ export const ui = {
     temp: nowTab.querySelector("#now-temp"),
     image: nowTab.querySelector("#weather-image"),
     cityName: nowTab.querySelector("#now-city"),
-    favButton: nowTab.querySelector("#now-button") 
+    favButton: nowTab.querySelector("#now-button"),
   },
   details: {
     tab: detailsTab,
@@ -25,23 +25,24 @@ export const ui = {
     list: forecast.querySelector(".forecast-list"),
     cityName: forecast.querySelector("#forecast-city"),
     forecastTemplate: forecast.querySelector("#forecast-template"),
-    getForecastUI(node) {
+    createContainer() {
+      const template = this.forecastTemplate.content
+      const containerTemplate = template.querySelector(".forecast-container")
+      return containerTemplate.cloneNode(true);
+    },
+    getUI(node) {
       return {
         date: node.querySelector(".forecast-date"),
         time: node.querySelector(".forecast-time"),
         desc: node.querySelector(".forecast-desc"),
         temp: node.querySelector(".forecast-temp"),
         feelsLike: node.querySelector(".forecast-feels-like"),
-        image: node.querySelector(".forecast-image")
-      }
+        image: node.querySelector(".forecast-image"),
+      };
     },
-    createContainer() {
-      return this.forecastTemplate.content.cloneNode(true)
-    }
   },
 
   historyNode: document.querySelector(".history-list"),
   form: form,
-  formInput: form.querySelector(`input[type="text"]`)
-}
-
+  formInput: form.querySelector(`input[type="text"]`),
+};
