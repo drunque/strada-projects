@@ -3,7 +3,7 @@ const detailsTab = document.querySelector("#details");
 const forecast = document.querySelector("#forecast");
 const form = document.querySelector("form");
 
-export const ui = {
+const ui = {
   now: {
     tab: nowTab,
     temp: nowTab.querySelector("#now-temp"),

@@ -1,11 +1,7 @@
-import { ui } from "./ui.js";
 import { formatTemp, formatTime } from "./format.js";
 import { getWeatherData } from "./server.js";
-import { weatherStorage } from "./storage.js";
 
-function renderNowTab(data) {
-  const isSaved = weatherStorage.history.includes(data.name)
-
+function renderNowTab(data, isSaved) {
   if (isSaved) {
     ui.now.favButton.textContent = "favorite";
     ui.now.favButton.classList.add("fav-active");
@@ -48,7 +44,7 @@ function renderForecastTab(data) {
       date[0] = date[0].slice(3);
       return date.slice(1, 3).join(" ");
     };
-    
+
     container.ui.date.textContent = formatDate(data.dt);
     container.ui.time.textContent = formatTime(data.dt, timezone);
 
@@ -62,15 +58,37 @@ function renderForecastTab(data) {
   }
 }
 
-export function render(cityName) {
-  getWeatherData(cityName)
-    .then((data) => {
-      renderNowTab(data);
-      renderDetailsTab(data);
-    })
-    .catch(console.error);
+export function renderCreate(isSaved) {
+  return function (cityName) {
+    getWeatherData(cityName)
+      .then((data) => {
+        renderNowTab(data, isSaved(data.name));
+        renderDetailsTab(data);
+      })
+      .catch(console.error);
 
-  getWeatherData(cityName, "forecast")
-    .then(renderForecastTab)
-    .catch(console.error);
+    getWeatherData(cityName, "forecast")
+      .then(renderForecastTab)
+      .catch(console.error);
+  };
+}
+
+export function renderHistoryNode(data) {
+  ui.historyNode.textContent = "";
+
+  for (const cityName of data) {
+    const historyCityNode = document.createElement("div");
+    historyCityNode.classList.add("history-city");
+
+    const cityNode = document.createElement("p");
+    cityNode.textContent = cityName;
+
+    const button = document.createElement("button");
+    button.classList.add("material-icons");
+    button.classList.add("delete-button");
+    button.textContent = "clear";
+
+    historyCityNode.append(cityNode, button);
+    ui.historyNode.append(historyCityNode);
+  }
 }

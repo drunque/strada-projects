@@ -1,33 +1,32 @@
-import { ui } from "./ui.js";
-
-function storage(render) {
+export function storage(render) {
   const storage = {};
 
   function saveData() {
-    localStorage.setItem("aktobe-data", JSON.stringify(storage));
-    render(storage.history);
+    const dataToSave = { ...storage, history: Array.from(storage.history) };
+    localStorage.setItem("aktobe-data", JSON.stringify(dataToSave));
+    render(dataToSave.history);
   }
 
   const publicMethods = {
     history: {
       addData(data) {
-        storage.history.push(data);
+        storage.history.add(data);
         saveData();
       },
-      removeData(data) {
-        storage.history.splice(storage.history.indexOf(data), 1);
+      deleteData(data) {
+        storage.history.delete(data);
         saveData();
       },
       loadData() {
         const loadedData = JSON.parse(localStorage.getItem("aktobe-data"));
-        const history = loadedData ? loadedData.history : [];
-        if (!history && !history.length) return;
-        storage.history = []
-        for (const data of history) storage.history.push(data);
+        const hasPreviousData =
+          loadedData && loadedData.history && loadedData.history.length;
+        const history = hasPreviousData ? [...loadedData.history] : [];
+        storage.history = new Set(history);
         render(storage.history);
       },
-      includes(data) {
-        return storage.history.includes(data);
+      hasData(data) {
+        return storage.history.has(data);
       },
     },
     setData(key, value) {
@@ -42,27 +41,3 @@ function storage(render) {
 
   return publicMethods;
 }
-
-
-function renderHistoryNode(data) {
-  ui.historyNode.textContent = "";
-
-  for (const cityName of data) {
-    const historyCityNode = document.createElement("div");
-    historyCityNode.classList.add("history-city");
-
-    const cityNode = document.createElement("p");
-    cityNode.textContent = cityName;
-
-    const button = document.createElement("button");
-    button.classList.add("material-icons");
-    button.classList.add("delete-button");
-    button.textContent = "clear";
-    
-    historyCityNode.append(cityNode, button);
-    ui.historyNode.append(historyCityNode);
-  }
-}
-
-export const weatherStorage = storage(renderHistoryNode) 
-
